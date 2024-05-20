@@ -20,5 +20,5 @@ jobs:
         run: xcrun simctl list
         
       - name: Build App
-        run: cd CI-CD; pwd; xcodebuild -destination "platform=iOS Simulator,name=iPhone 14,OS=16.2" -scheme CI-CD SYMROOT="./build" build
+        run: cd CI-CD; pwd; xcodebuild -destination "platform=iOS Simulator,name=iPhone 14,OS=16.2" -scheme CI-CD build
     
