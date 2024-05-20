@@ -20,7 +20,7 @@ jobs:
         run: xcrun simctl list
 
       - name: Root Path
-        run: SYMROOT
+        run: pwd
 
       - name: Build App
         run: xcodebuild -destination "platform=iOS Simulator,name=iPhone 15,OS=17.0" -scheme CI-CD SYMROOT="./CI-CD/" build
