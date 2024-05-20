@@ -1,0 +1,20 @@
+name: Pull Request
+
+on: 
+  pull_request:
+    branches:
+      - develop
+      
+  workflow_dispath:
+
+jobs: 
+  test:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Select Xcode
+        run: sudo xcode-select -switch /Applications/Xcode_14.2.app && /usr/bin/xcodebuild -versioon
+
+      - name: Run unit tests
+        run: xcodebuild test -scheme CI-CD -project CI-CD/CI-CD.xcodeproj -destination 'plataform=iOS Simulator, name=iPhone 15, OS=17' | xcpretty && exit ${PIPESTATUS[0]}
