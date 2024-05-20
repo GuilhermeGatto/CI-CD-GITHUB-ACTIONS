@@ -14,7 +14,7 @@ jobs:
       - uses: actions/checkout@v4
       
       - name: Select Xcode
-        run: sudo xcode-select -switch /Applications/Xcode_14.2.app && /usr/bin/xcodebuild -versioon
+        run: sudo xcode-select -switch /Applications/Xcode_15.app && /usr/bin/xcodebuild -versioon
 
       - name: Run unit tests
         run: xcodebuild test -scheme CI-CD -project CI-CD/CI-CD.xcodeproj -destination 'plataform=iOS Simulator, name=iPhone 15, OS=17' | xcpretty && exit ${PIPESTATUS[0]}
