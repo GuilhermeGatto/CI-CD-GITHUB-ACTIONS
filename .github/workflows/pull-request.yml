@@ -1,20 +1,23 @@
-name: Pull Request
+name: Swift
 
-on: 
-  pull_request:
-    branches:
-      - develop
-      
-  workflow_dispatch:
+on: [push]
+workflow_dispatch:
 
-jobs: 
-  test:
-    runs-on: macOS-latest
+jobs:
+  build:
+    name: Swift ${{ matrix.swift }} on ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        swift: ["5.2", "5.3"]
+    runs-on: ${{ matrix.os }}
     steps:
+      - uses: swift-actions/setup-swift@65540b95f51493d65f5e59e97dcef9629ddf11bf
+        with:
+          swift-version: ${{ matrix.swift }}
       - uses: actions/checkout@v4
-      
-      - name: Select Xcode
-        run: sudo xcode-select -switch /Applications/Xcode_15.app && /usr/bin/xcodebuild -versioon
-
-      - name: Run unit tests
-        run: xcodebuild test -scheme CI-CD -project CI-CD/CI-CD.xcodeproj -destination 'plataform=iOS Simulator, name=iPhone 15, OS=17' | xcpretty && exit ${PIPESTATUS[0]}
+      - name: Build
+        run: swift build
+      - name: Run tests
+        run: swift test
+  
