@@ -23,5 +23,5 @@ jobs:
         run: pwd
 
       - name: Build App
-        run: xcodebuild -destination "platform=iOS Simulator,name=iPhone 15,OS=17.0" -scheme CI-CD SYMROOT="./CI-CD/" build
+        run: xcodebuild -destination "platform=iOS Simulator,name=iPhone 15,OS=17.0" -scheme ./CI-CD SYMROOT=".build" build
     
