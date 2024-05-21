@@ -11,7 +11,7 @@ on:
 jobs:
 
   build: 
-    runs-on: macOS-14
+    runs-on: macOS-latest-large
 
     steps:
       - uses: actions/checkout@v4
