@@ -16,9 +16,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Move to Project Folder
-        run: cd CI-CD
-      
       - name: Install Swiftlint
         run: brew install swiftlint
 
@@ -26,5 +23,5 @@ jobs:
         run: swiftlint
 
       - name: Build App
-        run: xcodebuild -destination "platform=iOS Simulator,name=iPhone 14,OS=16.2" -scheme CI-CD build
+        run: cd $PROJDIR/CI-CD; xcodebuild -destination "platform=iOS Simulator,name=iPhone 14,OS=16.2" -scheme CI-CD build
     
