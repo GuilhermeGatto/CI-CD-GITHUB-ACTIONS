@@ -23,5 +23,5 @@ jobs:
         run: swiftlint
 
       - name: Build and test 
-        run: cd CI-CD; xcodebuild clean build test -project CI-CD.xcodeproj -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 14,OS=16.2" -scheme CI-CD
+        run: cd CI-CD; xcodebuild clean build test -scheme CI-CD -destination "platform=iOS Simulator,name=iPhone 14,OS=16.2" 
     
