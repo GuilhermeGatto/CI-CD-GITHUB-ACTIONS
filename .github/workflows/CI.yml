@@ -1,0 +1,28 @@
+name: CI
+
+on: 
+  push:
+    branches:
+      - '*'
+      - '*/*'
+      - '**'
+  workflow_dispatch:
+
+jobs:
+
+  build: 
+    runs-on: macOS-latest
+
+    steps:
+      - name: Get repository codebase
+      - uses: actions/checkout@v4
+
+      - name: Move to Project Folder
+        run: cd CI-CD
+      
+      - name: SwifLint
+      - run: swiftlint
+
+      - name: Build App
+        run: xcodebuild -destination "platform=iOS Simulator,name=iPhone 14,OS=16.2" -scheme CI-CD build
+    
