@@ -22,9 +22,6 @@ jobs:
       - name: Run SwifLint
         run: swiftlint
 
-      - name: Build one
-        run: cd CI-CD; set -o pipefail xcodebuild build -scheme CI-CD -destination 'platform=iOS Simulator,name=iPhone 11 Pro' | xcpretty
-
-      # - name: Build App
-      #   run: cd CI-CD; xcodebuild -destination "platform=iOS Simulator,name=iPhone 14,OS=16.2" -scheme CI-CD build
+      - name: Build App
+        run: cd CI-CD; xcodebuild -destination "platform=iOS Simulator,name=iPhone 14,OS=16.2" -scheme CI-CD test
     
