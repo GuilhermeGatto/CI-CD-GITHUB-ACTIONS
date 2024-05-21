@@ -11,7 +11,7 @@ on:
 jobs:
 
   build: 
-    runs-on: macOS-latest-xlarge
+    runs-on: macOS-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -19,7 +19,10 @@ jobs:
       - name: Move to Project Folder
         run: cd CI-CD
       
-      - name: SwifLint
+      - name: Install Swiftlint
+        run: brew install swiftlint
+
+      - name: Run SwifLint
         run: swiftlint
 
       - name: Build App
