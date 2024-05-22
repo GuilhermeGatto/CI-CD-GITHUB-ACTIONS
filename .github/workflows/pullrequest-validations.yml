@@ -9,34 +9,5 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Check title and labels
-      run: |
-        title=$(jq -r .pull_request.title $GITHUB_EVENT_PATH)
-
-        # Check if title starts with feat or fix
-        if [[ $title =~ ^(feat|fix) ]]; then
-          echo "Title is valid."
-        else
-          echo "Title should start with 'feat' or 'fix'."
-          exit 1
-        fi
-
-        # Check if any label starts with "squad"
-        labels=$(jq -r '.pull_request.labels[].name' $GITHUB_EVENT_PATH)
-        valid_label=false
-        for label in $labels; do
-          if [[ $label =~ ^squad ]]; then
-            valid_label=true
-            break
-          fi
-        done
-
-        if $valid_label; then
-          echo "Label starting with 'squad' is present."
-        else
-          echo "Label should contain a prefix starting with 'squad'."
-          exit 1
-        fi
+    - name: Pull Request Validation
+      uses: GuilhermeGatto/reusable-pipeline-mobile/.github/workflows/validate-pull-request.yml
