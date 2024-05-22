@@ -21,8 +21,7 @@ jobs:
         run: brew install swiftlint
 
       - name: Download Swifitlint Rules
-        run: curl -o .swiftlint.yml https://github.com/kodecocodes/swift-algorithm-club/blob/master/.swiftlint.yml
-
+        run: curl -o .swiftlint.yml https://github.com/realm/SwiftLint/blob/main/.swiftlint.yml
       - name: Run SwifLint
         run: swiftlint lint -- config .swiftlint.yml
 
