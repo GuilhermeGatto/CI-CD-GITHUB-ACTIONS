@@ -58,7 +58,7 @@ jobs:
           echo "Building scheme: $SCHEME_NAME"
           
           # Build the project
-          xcodebuild -project "$XCODEPROJ_PATH" -scheme "$SCHEME_NAME" build
+          xcodebuild -project "$XCODEPROJ_PATH" -scheme "$SCHEME_NAME" build CODE_SIGNING_ALLOWED=NO
 
 
       # - name: Build and test 
