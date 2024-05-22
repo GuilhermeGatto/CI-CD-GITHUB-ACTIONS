@@ -21,6 +21,7 @@ jobs:
           echo "Title is valid."
         else
           echo "Title should start with 'feat' or 'fix'."
+          exit 1
         fi
 
         # Check if any label starts with "squad"
@@ -37,4 +38,5 @@ jobs:
           echo "Label starting with 'squad' is present."
         else
           echo "Label should contain a prefix starting with 'squad'."
+          exit 1
         fi
