@@ -2,16 +2,12 @@ name: Pull Request Checks
 
 on:
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, edited]
 
 jobs:
-  check_pull_request:
-    runs-on: ubuntu-latest
-
-    jobs:
-      reusable-workflow:
-        uses: GuilhermeGatto/reusable-pipeline-mobile/.github/workflows/validate-pull-request.yml@master
-        with: 
-          pr_number: ${{ github.event.pull_request.number }}
-          repo: ${{ github.repository }}
-        secrets: $
+  call-reusable-workflow:
+    uses: GuilhermeGatto/reusable-pipeline-mobile/.github/workflows/validate-pull-request.yml@master
+    with:
+      pr_number: ${{ github.event.pull_request.number }}
+      repo: ${{ github.repository }}
+    secrets: $
