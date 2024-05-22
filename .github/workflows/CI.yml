@@ -14,7 +14,25 @@ jobs:
     runs-on: macOS-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout codebase from branch 
+        uses: actions/checkout@v4
+      
+      - name: Find first .xcodeproj
+        id: find-xcodeproj
+        run: |
+          # Find the first .xcodeproj in the folder hierarchy
+          XCODEPROJ_PATH=$(find . -name "*.xcodeproj" | head -n 1)
+          echo "Found Xcode project: $XCODEPROJ_PATH"
+          
+          # Check if a project was found
+          if [ -z "$XCODEPROJ_PATH" ]; then
+            echo "No .xcodeproj file found!"
+            exit 1
+          fi
+          
+          # Set the Xcode project path as an output
+          echo "::set-output name=xcodeproj_path::$XCODEPROJ_PATH"
+
 
       - name: Install Swiftlint
         run: brew install swiftlint
@@ -22,6 +40,27 @@ jobs:
       - name: Run SwifLint
         run: swiftlint
 
-      - name: Build and test 
-        run: cd CI-CD; xcodebuild clean build -scheme CI-CD -destination "platform=iOS Simulator,name=iPhone 14,OS=16.2" CODE_SIGNING_ALLOWED=NO
+
+      - name: Build Xcode project
+        run: |
+          # Retrieve the Xcode project path from the previous step
+          XCODEPROJ_PATH=${{ steps.find-xcodeproj.outputs.xcodeproj_path }}
+          
+          # Extract the scheme name from the project (customize as needed)
+          SCHEME_NAME=$(xcodebuild -list -project "$XCODEPROJ_PATH" | grep -A 1 'Schemes:' | tail -n 1 | xargs)
+          
+          # Check if a scheme was found
+          if [ -z "$SCHEME_NAME" ]; then
+            echo "No scheme found in the project!"
+            exit 1
+          fi
+
+          echo "Building scheme: $SCHEME_NAME"
+          
+          # Build the project
+          xcodebuild -project "$XCODEPROJ_PATH" -scheme "$SCHEME_NAME" build
+
+
+      # - name: Build and test 
+      #   run: cd CI-CD; xcodebuild clean build -scheme CI-CD -destination "platform=iOS Simulator,name=iPhone 14,OS=16.2" CODE_SIGNING_ALLOWED=NO
     
