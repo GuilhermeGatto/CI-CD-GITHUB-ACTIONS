@@ -19,11 +19,9 @@ jobs:
 
       - name: Install Swiftlint
         run: brew install swiftlint
-
-      - name: Download Swifitlint Rules
-        run: curl -o .swiftlint.yml https://github.com/realm/SwiftLint/blob/main/.swiftlint.yml
+        
       - name: Run SwifLint
-        run: swiftlint lint -- config .swiftlint.yml
+        run: swiftlint lint
 
       - name: Find and set the first .xcworkspace or .xcodeproj path
         id: find-project
