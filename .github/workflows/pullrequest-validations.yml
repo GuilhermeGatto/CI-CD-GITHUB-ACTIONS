@@ -11,3 +11,7 @@ jobs:
     steps:
     - name: Pull Request Validation
       uses: GuilhermeGatto/reusable-pipeline-mobile/.github/workflows/validate-pull-request.yml@master
+      with: 
+        pr_number: ${{ github.event.pull_request.number }}
+        repo: ${{ github.repository }}
+      secrets: $
