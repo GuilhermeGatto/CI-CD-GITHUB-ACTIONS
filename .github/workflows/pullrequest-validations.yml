@@ -10,4 +10,5 @@ jobs:
     with:
       pr_number: ${{ github.event.pull_request.number }}
       repo: ${{ github.repository }}
-    secrets: $
+    secrets:
+      GITHUB_TOKEN: $ {{ secrets.GITHUB_TOKEN }}
