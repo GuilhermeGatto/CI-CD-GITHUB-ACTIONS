@@ -16,16 +16,6 @@ jobs:
     steps:
       - name: Checkout codebase from branch 
         uses: actions/checkout@v4
-      
-      - name: Find first .xcodeproj
-        id: find-xcodeproj
-        run: XCODEPROJ_PATH = $(find . -name "*.xcodeproj" | head -n 1)
-        if [ -z "$XCODEPROJ_PATH" ];
-        then 
-          echo "no xcodeproj found!"
-          exit 1
-        fi
-        echo "::set-output name=xcodeproj_path::$XCODEPROJ_PATH"
 
       - name: Install Swiftlint
         run: brew install swiftlint
