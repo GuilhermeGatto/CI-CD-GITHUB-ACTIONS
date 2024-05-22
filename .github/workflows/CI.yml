@@ -33,32 +33,32 @@ jobs:
       - name: Run SwifLint
         run: swiftlint
 
-  - name: Find and set the first .xcworkspace or .xcodeproj path
-        id: find-project
-        run: |
-          # Try to find the first .xcworkspace
-          XCWORKSPACE_PATH=$(find . -name "*.xcworkspace" | head -n 1)
-          
-          # If no .xcworkspace found, find the first .xcodeproj
-          if [ -z "$XCWORKSPACE_PATH" ]; then
-            XCODEPROJ_PATH=$(find . -name "*.xcodeproj" | head -n 1)
-            echo "No .xcworkspace found, found Xcode project: $XCODEPROJ_PATH"
-            
-            # Check if a .xcodeproj was found
-            if [ -z "$XCODEPROJ_PATH" ]; then
-              echo "No .xcodeproj file found!"
-              exit 1
-            fi
+      - name: Find and set the first .xcworkspace or .xcodeproj path
+            id: find-project
+            run: |
+              # Try to find the first .xcworkspace
+              XCWORKSPACE_PATH=$(find . -name "*.xcworkspace" | head -n 1)
+              
+              # If no .xcworkspace found, find the first .xcodeproj
+              if [ -z "$XCWORKSPACE_PATH" ]; then
+                XCODEPROJ_PATH=$(find . -name "*.xcodeproj" | head -n 1)
+                echo "No .xcworkspace found, found Xcode project: $XCODEPROJ_PATH"
+                
+                # Check if a .xcodeproj was found
+                if [ -z "$XCODEPROJ_PATH" ]; then
+                  echo "No .xcodeproj file found!"
+                  exit 1
+                fi
 
-            # Set the .xcodeproj path as an output
-            echo "::set-output name=project_path::$XCODEPROJ_PATH"
-            echo "::set-output name=project_type::xcodeproj"
-          else
-            echo "Found Xcode workspace: $XCWORKSPACE_PATH"
-            # Set the .xcworkspace path as an output
-            echo "::set-output name=project_path::$XCWORKSPACE_PATH"
-            echo "::set-output name=project_type::xcworkspace"
-          fi
+                # Set the .xcodeproj path as an output
+                echo "::set-output name=project_path::$XCODEPROJ_PATH"
+                echo "::set-output name=project_type::xcodeproj"
+              else
+                echo "Found Xcode workspace: $XCWORKSPACE_PATH"
+                # Set the .xcworkspace path as an output
+                echo "::set-output name=project_path::$XCWORKSPACE_PATH"
+                echo "::set-output name=project_type::xcworkspace"
+              fi
 
       - name: Build Xcode project or workspace
         run: |
