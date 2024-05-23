@@ -1,2 +1,4 @@
 skip: 
-  ci: true
+  lint: true
+  test: true
+  build: false
