@@ -3,13 +3,11 @@ name: Pull Request Checks
 on:
   pull_request:
     types: [opened, edited]
-    workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
-  call-reusable-workflow:
+  validate:
     uses: GuilhermeGatto/reusable-pipeline-mobile/.github/workflows/validate-pull-request.yml@master
     with:
       pr_number: ${{ github.event.pull_request.number }}
       repo: ${{ github.repository }}
-    secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
