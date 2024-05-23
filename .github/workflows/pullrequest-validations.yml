@@ -2,7 +2,7 @@ name: Pull Request Checks
 
 on:
   pull_request:
-    types: [opened, edited]
+    types: ['opened', 'edited', 'reopened', 'synchronize']
   workflow_dispatch:
 
 jobs:
