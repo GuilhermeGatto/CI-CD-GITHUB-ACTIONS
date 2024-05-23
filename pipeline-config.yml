@@ -1,0 +1,4 @@
+skip: 
+  lint: true
+  test: true
+  build: false
